@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'amfe-flexible'
+import { get } from '@/request/http'
 
+Vue.prototype.$myget = get;
 Vue.config.productionTip = false
 
 new Vue({
