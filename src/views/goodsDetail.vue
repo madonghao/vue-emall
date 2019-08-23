@@ -20,8 +20,17 @@ export default {
     );
   },
   methods: {
-    onClickLeft() {}
-  }
+    onClickLeft() {
+      this.$router.back();
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.path == '/categorydetail') {
+      console.log('商品详情页要过去了提前修改判断条件isBack为假');
+      to.meta.isBack = false;
+    }
+    next();
+  },
 };
 </script>
 

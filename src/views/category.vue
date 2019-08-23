@@ -10,7 +10,8 @@
     </van-sidebar>
     <div class="create">
       <van-swipe :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="focusBanner in focusBannerList" :key="focusBanner.id">
+        <!-- TODO:暂未解决的轮播图key值问题，会重复 -->
+        <van-swipe-item v-for="focusBanner in focusBannerList" :key="focusBanner.picUrl">
           <van-image width="100%" height="100%" :src="focusBanner.picUrl" />
         </van-swipe-item>
       </van-swipe>
@@ -21,9 +22,9 @@
         </van-grid>-->
         <div class="grid">
           <div
-            @click="clickJump(index)"
+            @click="clickJump(category.name)"
             class="grid-item"
-            v-for="(category, index) in categoryGroup.categoryList"
+            v-for="category in categoryGroup.categoryList"
             :key="category.id"
           >
             <img :src="category.prettyBannerUrl" />
@@ -78,12 +79,12 @@ export default {
         this.subCategoryList = subCategoryList;
       });
     },
-    clickJump(index) {
+    clickJump(name) {
       let cateList = this.subCategoryList;
       this.$router.push({
-        name: "categoryDetail",
+        name: "categorydetail",
         params: {
-          index,
+          name,
           cateList
         }
       });

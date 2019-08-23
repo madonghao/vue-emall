@@ -13,30 +13,34 @@ export default new Router({
       children: [
         {
           path: 'home',
-          component: () => import('./views/home.vue')
+          component: () => import('./views/home.vue'),
         },
         {
           path: 'category',
-          component: () => import('./views/category.vue')
+          component: () => import('./views/category.vue'),
         },
         {
           path: 'cart',
-          component: () => import('./views/cart.vue')
+          component: () => import('./views/cart.vue'),
         },
         {
           path: 'user',
-          component: () => import('./views/user.vue')
+          component: () => import('./views/user.vue'),
         }
-      ]
+      ],
     },
     {
       path: '/categorydetail',
-      name: 'categoryDetail',
+      name: 'categorydetail',
       component: () => import('./views/categoryDetail.vue'),
+      meta: {
+        keepAlive: true,
+        isBack: true,
+      }
     },
     {
       path: '/goodsdetail',
-      component: () => import('./views/goodsDetail.vue')
+      component: () => import('./views/goodsDetail.vue'),
     }
   ]
 })

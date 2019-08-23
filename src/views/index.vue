@@ -5,7 +5,13 @@
     </header>
 
     <div class="main">
-      <router-view />
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive">
+        </router-view>
+      </keep-alive>
+
+      <router-view v-if="!$route.meta.keepAlive">
+      </router-view>
     </div>
 
     <footer>
@@ -30,35 +36,36 @@ export default {
   },
   data() {
     return {
-      active: 0,
+      active: 0
     };
   },
   methods: {},
   computed: {
-      title() {
-          return this.$store.state.title;
-      }
+    title() {
+      return this.$store.state.title;
+    }
   }
 };
 </script>
 
 <style lang="scss" scope>
 .wrap {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    header, footer {
-        flex-shrink: 0;
-    }
-    header {
-        height: 46px;
-    }
-    .main {
-        flex-grow: 1;
-        overflow: hidden;
-    }
-    footer {
-        height: 50px;
-    }
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  header,
+  footer {
+    flex-shrink: 0;
+  }
+  header {
+    height: 46px;
+  }
+  .main {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+  footer {
+    height: 50px;
+  }
 }
 </style>

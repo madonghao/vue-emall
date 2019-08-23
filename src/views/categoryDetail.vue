@@ -31,23 +31,9 @@ export default {
       itemList: []
     };
   },
-  created() {
-    let { index, cateList } = this.$route.params;
-    this.active = index;
-    this.cateList = cateList;
-    let { frontName, id, superCategoryId } = cateList[index];
-    this.title = frontName;
-    this.$myget("/xhr/list/l2Items2.json", {
-      categoryL1Id: superCategoryId,
-      categoryL2Id: id
-    }).then(res => {
-      let { itemList } = res.data;
-      this.itemList = itemList;
-    });
-  },
   methods: {
     onClickLeft() {
-      this.$router.push({ path: "/category" });
+      this.$router.back();
     },
     tabChange(name) {
       let { frontName, id, superCategoryId } = this.cateList[name];
@@ -62,6 +48,42 @@ export default {
     },
     goodsClick(id) {
       this.$router.push({ path: "/goodsdetail", query: { id } });
+    },
+    init() {
+      let { name, cateList } = this.$route.params;
+      for (let i = 0; i < cateList.length; i++) {
+        if (cateList[i].name == name) {
+          this.active = i;
+          break;
+        }
+      }
+      this.cateList = cateList;
+      let { frontName, id, superCategoryId } = cateList[this.active];
+      this.title = frontName;
+      this.$myget("/xhr/list/l2Items2.json", {
+        categoryL1Id: superCategoryId,
+        categoryL2Id: id
+      }).then(res => {
+        let { itemList } = res.data;
+        this.itemList = itemList;
+      });
+    }
+  },
+  // created() {
+  //   // 第一次进入正常初始化
+  //   this.init();
+  // },
+  beforeRouteLeave(to, from, next) {
+    if (to.path == "/category") {
+      from.meta.isBack = true;
+      console.log('我要返回到category页面了调整isBack为真');
+    }
+    next();
+  },
+  activated() {
+    if (this.$route.meta.isBack) {
+      console.log('我执行了init')
+      this.init();
     }
   }
 };
