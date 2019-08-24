@@ -5,7 +5,7 @@
       <van-tab v-for="cate in cateList" :title="cate.name" :key="cate.id">
         <h6 class="title" v-text="title"></h6>
         <div class="goods-wrap">
-          <goods-easy @click="goodsClick" v-for="item in itemList" :key="item.id" :info="item"></goods-easy>
+          <goods-easy v-for="item in itemList" :key="item.id" :info="item"></goods-easy>
         </div>
       </van-tab>
     </van-tabs>
@@ -45,9 +45,6 @@ export default {
         let { itemList } = res.data;
         this.itemList = itemList;
       });
-    },
-    goodsClick(id) {
-      this.$router.push({ path: "/goodsdetail", query: { id } });
     },
     init() {
       let { name, cateList } = this.$route.params;

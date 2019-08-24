@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-easy" @click="onClick">
+  <div class="goods-easy" @click="goodsClick">
     <img :src="info.primaryPicUrl" alt />
     <p class="desc" v-text="info.simpleDesc"></p>
     <div class="info">
@@ -49,9 +49,10 @@ export default {
     }
   },
   methods: {
-    onClick() {
-      this.$emit("click", this.info.id);
-    }
+    goodsClick() {
+      let id = this.info.id;
+      this.$router.push({ path: "/goodsdetail", query: { id } });
+    },
   }
 };
 </script>
